@@ -44,4 +44,14 @@ public class Maze {
   public void setAnimate(boolean b) {
     ani = b;
   }
+  public String toString() {
+    String s = "";
+    for(int q = 0; q < board.length; q++) {
+      for(int w = 0; w < board[q].length; w++) {
+        s += board[q][w];
+      }
+      s += "\n";
+    }
+    return s;
+  }
 }
