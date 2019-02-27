@@ -41,5 +41,7 @@ public class Maze {
       throw new IllegalStateException("Board must contain S and E");
     }
   }
-
+  public void setAnimate(boolean b) {
+    ani = b;
+  }
 }
