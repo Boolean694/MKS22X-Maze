@@ -54,4 +54,13 @@ public class Maze {
     }
     return s;
   }
+  public static void main(String[] asdf) {
+    try {
+      Maze test = new Maze("test.txt");
+      System.out.println(test);
+    }
+    catch(Exception e) {
+      System.out.println("file not found or S or E missing");
+    }
+  }
 }
