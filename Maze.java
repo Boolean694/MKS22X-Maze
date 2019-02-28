@@ -41,6 +41,15 @@ public class Maze {
       throw new IllegalStateException("Board must contain S and E");
     }
   }
+  private void wait(int millis) {
+    try {
+       Thread.sleep(millis);
+    }
+    catch (InterruptedException e) {}
+  }
+  public void clearTerminal() {
+    System.out.println("\033[2J\033[1;1H");
+  }
   public void setAnimate(boolean b) {
     ani = b;
   }
@@ -54,9 +63,69 @@ public class Maze {
     }
     return s;
   }
+  public int solve() {
+    int sr = 0;
+    int sc = 0;
+    for(int q = 0; q < board.length; q++) {
+      for(int w = 0; w < board[q].length; w++) {
+        if(board[q][w] == 'S') {sr = q; sc = w;}
+      }
+    }
+    return sh(sr,sc);
+  }
+  private int sh(int r, int c) {
+    if(ani){
+        clearTerminal();
+        System.out.println(this);
+        wait(20);
+    }
+    if(board[r][c] == 'E') { //if hit end
+      int atc = 0;
+      for(int q = 0; q < board.length; q++) {
+        for(int w = 0; w < board[q].length; w++) {
+          if(board[q][w] == '@') {
+            atc++;
+          }
+        }
+      }
+      return atc;
+    }
+    else if(cmRight(r,c)) { //can move right
+
+    }
+    else if(cmDown(r,c)) { //can move down
+
+    }
+    else if(cmLeft(r,c)) { //can move left
+
+    }
+    else if(cmUp(r,c)) { //can move up
+
+    }
+    else { //went everywhere but didn't find solution
+      return -1;
+    }
+  }
+  private boolean cmRight(int r, int c) {
+    if(c >= board[0].length) {return false;}
+    return board[r][c + 1] == ' ' || board[r][c + 1] == '@';
+  }
+  private boolean cmDown(int r, int c) {
+    if(r >= board.length) {return false;}
+    return board[r + 1][c] == ' ' || board[r + 1][c] == '@';
+  }
+  private boolean cmLeft(int r, int c) {
+    if(c < 0) {return false;}
+    return board[r][c - 1] == ' ' || board[r][c - 1] == '@';
+  }
+  private boolean cmUp(int r, int c) {
+    if(r < 0) {return false;}
+    return board[r - 1][c] == ' ' || board[r - 1][c] == '@';
+  }
   public static void main(String[] asdf) {
     try {
       Maze test = new Maze("test.txt");
+      test.setAnimate(true);
       System.out.println(test);
     }
     catch(Exception e) {
