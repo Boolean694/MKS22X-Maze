@@ -88,24 +88,26 @@ public class Maze {
           }
         }
       }
+      System.out.println(atc);
       return atc;
     }
     board[r][c] = '@';
     if(cmRight(r,c)) { //can move right
       return sh(r,c + 1);
     }
-    else if(cmDown(r,c)) { //can move down
+    if(cmDown(r,c)) { //can move down
       return sh(r + 1,c);
     }
-    else if(cmLeft(r,c)) { //can move left
+    if(cmLeft(r,c)) { //can move left
       return sh(r,c - 1);
     }
-    else if(cmUp(r,c)) { //can move up
+    if(cmUp(r,c)) { //can move up
       return sh(r - 1,c);
     }
-    else { //went everywhere but didn't find solution
-      return -1;
-    }
+    //place . and returns -1 if nothing works
+    board[r][c] = '.';
+    System.out.println("-1");
+    return -1;
   }
   private boolean cmRight(int r, int c) {
     if(c >= board[0].length) {return false;}
@@ -127,6 +129,7 @@ public class Maze {
     try {
       Maze test = new Maze("test.txt");
       test.setAnimate(true);
+      test.solve();
       System.out.println(test);
     }
     catch(Exception e) {
