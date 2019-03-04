@@ -105,9 +105,25 @@ public class Maze {
       return sh(r - 1,c);
     }
     //place . and returns -1 if nothing works
-    board[r][c] = '.';
-    System.out.println("-1");
-    return -1;
+    if(!checkAts(r, c)) {
+      return -1;
+    }
+    if(cmRightAt(r, c)) {
+      board[r][c] = '.';
+      return sh(r, c + 1);
+    }
+    if(cmDownAt(r, c)) {
+      board[r][c] = '.';
+      return sh(r + 1, c);
+    }
+    if(cmLeftAt(r, c)) {
+      board[r][c] = '.';
+      return sh(r, c - 1);
+    }
+    else {
+      board[r][c] = '.';
+      return sh(r - 1, c);
+    }
   }
   private boolean cmRight(int r, int c) {
     if(c >= board[0].length) {return false;}
@@ -124,6 +140,25 @@ public class Maze {
   private boolean cmUp(int r, int c) {
     if(r < 0) {return false;}
     return board[r - 1][c] == ' ' || board[r - 1][c] == 'E';
+  }
+  private boolean checkAts(int r, int c) {
+    return board[r][c - 1] == '@' || board[r][c + 1] == '@' || board[r - 1][c] == '@' || board[r + 1][c] == '@';
+  }
+  private boolean cmRightAt(int r, int c) {
+    if(c >= board[0].length) {return false;}
+    return board[r][c + 1] == ' ' || board[r][c + 1] == 'E' || board[r][c + 1] == '@';
+  }
+  private boolean cmDownAt(int r, int c) {
+    if(r >= board.length) {return false;}
+    return board[r + 1][c] == ' ' || board[r + 1][c] == 'E' || board[r + 1][c] == '@';
+  }
+  private boolean cmLeftAt(int r, int c) {
+    if(c < 0) {return false;}
+    return board[r][c - 1] == ' ' || board[r][c - 1] == 'E' || board[r][c - 1] == '@';
+  }
+  private boolean cmUpAt(int r, int c) {
+    if(r < 0) {return false;}
+    return board[r - 1][c] == ' ' || board[r - 1][c] == 'E' || board[r - 1][c] == '@';
   }
   public static void main(String[] asdf) {
     try {
